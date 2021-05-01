@@ -14,12 +14,30 @@
         </li>
       </ul>
     </div>
+    <div class="card p-3 my-5">
+      <h4 class="text-center">Total: ${{ total }}</h4>
+    </div>
+    <button
+      :disabled="items.length === 0"
+      @click="$emit('pagar')"
+      class="btn btn-info form-control"
+    >
+      Pagar Ahora
+    </button>
   </div>
 </template>
 <script>
 export default {
   name: "Carrito",
   props: ["items"],
+  computed: {
+    total() {
+      return this.items.reduce(
+        (acumulator, item) => acumulator + Number(item.precio),
+        0
+      );
+    }
+  },
   data() {
     return {
       title: "Tus Productos son:"
